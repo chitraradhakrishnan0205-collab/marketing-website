@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "anthropic-cybersecurity-skills": {
+      "source": "aradotso/security-skills",
+      "sourceType": "github",
+      "skillPath": "skills/anthropic-cybersecurity-skills/SKILL.md",
+      "computedHash": "a4f89eb2109270df0db7989fb0fcb5fcd69dae96afcd9ad4963d6be0542981c0"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "93f53fd1c0352d3d7ec17b8f73d7351bf76f4821e55d123c9d2abc2c53ba48e4"
+    },
+    "lead-magnets": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/lead-magnets/SKILL.md",
+      "computedHash": "6a36a8582d2a179826712d9c05d1210ffc46ca42a3c8eaa8fd5862a526430bab"
+    },
+    "premium_web_design": {
+      "source": "jerrar670/surf-website",
+      "sourceType": "github",
+      "skillPath": ".agent/skills/premium_web_design/SKILL.md",
+      "computedHash": "b6c2f85591ceb140e5c8eb01998b3dee508d511dc058ef14043c8de1edd6096f"
+    },
+    "seo-audit": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "computedHash": "606da61224d9d5687020816292c88152a7fcb27ce375b22f92f429e074f07f34"
+    }
+  }
+}
