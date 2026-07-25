@@ -2,7 +2,10 @@
 // confirmation email to the destination address that must be clicked to activate it.
 const FORM_ENDPOINT = 'https://formsubmit.co/ajax/chitraradhakrishnan0205@gmail.com';
 
-// Smooth scroll for all internal anchor links (nav + hero CTA)
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Smooth scroll for all internal anchor links (nav + hero CTAs + footer)
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener('click', (event) => {
     const targetId = link.getAttribute('href');
@@ -10,7 +13,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     if (!targetEl) return;
 
     event.preventDefault();
-    targetEl.scrollIntoView({ behavior: 'smooth' });
+    targetEl.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   });
 });
 
@@ -20,12 +23,10 @@ const statusEl = document.getElementById('form-status');
 const submitBtn = form.querySelector('.form-submit');
 const submitBtnDefaultText = submitBtn.textContent;
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function setStatus(message, type) {
-  statusEl.textContent = message;
-  statusEl.classList.remove('success', 'error');
-  if (type) statusEl.classList.add(type);
+function setStatus(el, message, type) {
+  el.textContent = message;
+  el.classList.remove('success', 'error');
+  if (type) el.classList.add(type);
 }
 
 function clearFieldError(field) {
@@ -67,7 +68,7 @@ form.addEventListener('submit', async (event) => {
 
   const errors = validateForm();
   if (errors.length > 0) {
-    setStatus(errors[0], 'error');
+    setStatus(statusEl, errors[0], 'error');
     return;
   }
 
@@ -76,11 +77,12 @@ form.addEventListener('submit', async (event) => {
     email: form.elements.email.value.trim(),
     company: form.elements.company.value.trim(),
     message: form.elements.message.value.trim(),
+    _subject: 'New enquiry — Momentum contact form',
   };
 
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
-  setStatus('Sending your message…', null);
+  setStatus(statusEl, 'Sending your message…', null);
 
   try {
     const response = await fetch(FORM_ENDPOINT, {
@@ -93,15 +95,117 @@ form.addEventListener('submit', async (event) => {
     });
 
     if (response.ok) {
-      setStatus('Thanks! Your message has been sent — we\'ll be in touch soon.', 'success');
+      setStatus(statusEl, 'Thanks! Your message has been sent — we\'ll be in touch soon.', 'success');
       form.reset();
     } else {
-      setStatus('Something went wrong sending your message. Please try again.', 'error');
+      setStatus(statusEl, 'Something went wrong sending your message. Please try again.', 'error');
     }
   } catch (err) {
-    setStatus('Network error — please check your connection and try again.', 'error');
+    setStatus(statusEl, 'Network error — please check your connection and try again.', 'error');
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = submitBtnDefaultText;
   }
 });
+
+// Lead magnet form handling — captures the email, notifies Momentum, and
+// unlocks the playbook immediately so the visitor doesn't have to wait on email.
+const leadForm = document.getElementById('lead-magnet-form');
+
+if (leadForm) {
+  const leadStatusEl = document.getElementById('lead-form-status');
+  const leadSubmitBtn = leadForm.querySelector('button[type="submit"]');
+  const leadSubmitDefaultText = leadSubmitBtn.textContent;
+  const leadEmailField = leadForm.elements.email;
+
+  leadForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    leadEmailField.classList.remove('invalid');
+    const email = leadEmailField.value.trim();
+
+    if (!email || !EMAIL_REGEX.test(email)) {
+      leadEmailField.classList.add('invalid');
+      setStatus(leadStatusEl, 'Please enter a valid email address.', 'error');
+      return;
+    }
+
+    leadSubmitBtn.disabled = true;
+    leadSubmitBtn.textContent = 'Unlocking…';
+    setStatus(leadStatusEl, 'One moment…', null);
+
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          _subject: 'New Growth Audit Playbook request',
+        }),
+      });
+
+      if (response.ok) {
+        leadStatusEl.innerHTML = 'You\'re in — <a href="playbook.html" target="_blank" rel="noopener">open the Growth Audit Playbook</a>.';
+        leadStatusEl.classList.remove('error');
+        leadStatusEl.classList.add('success');
+        leadForm.reset();
+      } else {
+        setStatus(leadStatusEl, 'Something went wrong. Please try again.', 'error');
+      }
+    } catch (err) {
+      setStatus(leadStatusEl, 'Network error — please check your connection and try again.', 'error');
+    } finally {
+      leadSubmitBtn.disabled = false;
+      leadSubmitBtn.textContent = leadSubmitDefaultText;
+    }
+  });
+}
+
+// Scoreboard stat counters — animate up when scrolled into view
+const statNumbers = document.querySelectorAll('.stat-number');
+
+function renderStatValue(el, value) {
+  const decimals = Number(el.dataset.decimals || 0);
+  const suffix = el.dataset.suffix || '';
+  el.textContent = `${value.toFixed(decimals)}${suffix}`;
+}
+
+function animateStat(el) {
+  const target = Number(el.dataset.countTo);
+
+  if (prefersReducedMotion) {
+    renderStatValue(el, target);
+    return;
+  }
+
+  const duration = 1200;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    renderStatValue(el, target * eased);
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+if (statNumbers.length) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animateStat(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  statNumbers.forEach((el) => observer.observe(el));
+}

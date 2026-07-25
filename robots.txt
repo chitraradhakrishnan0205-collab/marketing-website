@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /playbook.html
+
+Sitemap: https://chitraradhakrishnan0205-collab.github.io/marketing-website/sitemap.xml
