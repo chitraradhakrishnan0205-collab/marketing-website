@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momentum Marketing Consultancy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">Momentum</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Marketing That Moves the Needle</h1>
+      <p class="hero-subheadline">
+        We help ambitious brands cut through the noise with strategy, creative, and
+        data-driven campaigns that turn attention into growth.
+      </p>
+      <a href="#contact" class="btn btn-primary hero-cta">Start the Conversation</a>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <div class="section-inner">
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-subtitle">Real results, from real partnerships.</p>
+
+      <div class="testimonial-grid">
+        <article class="testimonial-card">
+          <div class="avatar" aria-hidden="true">JR</div>
+          <p class="quote">"Momentum rebuilt our entire funnel and doubled our qualified leads in under a quarter. They think like operators, not just marketers."</p>
+          <p class="client-name">Jamie Reyes</p>
+          <p class="client-role">CEO, Northwind Supply Co.</p>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="avatar" aria-hidden="true">SC</div>
+          <p class="quote">"The team took the time to understand our audience before touching a single campaign. That discipline is rare — and it shows in the results."</p>
+          <p class="client-name">Sara Chen</p>
+          <p class="client-role">Head of Growth, Lumen Analytics</p>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="avatar" aria-hidden="true">DA</div>
+          <p class="quote">"Working with Momentum felt like adding a senior marketing department overnight. Clear reporting, sharp creative, no fluff."</p>
+          <p class="client-name">David Adeyemi</p>
+          <p class="client-role">Founder, Harbor & Co.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="section-inner">
+      <h2 class="section-title">Let's Talk Strategy</h2>
+      <p class="section-subtitle">Tell us a bit about your business and we'll be in touch within one business day.</p>
+
+      <form id="enquiry-form" class="enquiry-form" novalidate>
+        <div class="form-row">
+          <label for="name">Name <span class="required">*</span></label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-row">
+          <label for="company">Company <span class="optional">(optional)</span></label>
+          <input type="text" id="company" name="company">
+        </div>
+
+        <div class="form-row">
+          <label for="message">Message <span class="required">*</span></label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">Send Enquiry</button>
+
+        <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Momentum Marketing Consultancy. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
