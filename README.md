@@ -2,6 +2,8 @@
 
 A static, single-page marketing website: hero section, testimonials, and a contact/enquiry form. No build tooling, no package manager, no framework.
 
+![Screenshot of the Momentum Marketing Consultancy website](assets/screenshot.png)
+
 ## Structure
 
 - `index.html` — all markup (nav, hero, testimonials, contact form, footer)
