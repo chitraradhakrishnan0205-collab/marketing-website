@@ -33,6 +33,12 @@ function clearFieldError(field) {
   field.classList.remove('invalid');
 }
 
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+}
+
 function validateForm() {
   const nameField = form.elements.name;
   const emailField = form.elements.email;
@@ -96,6 +102,7 @@ form.addEventListener('submit', async (event) => {
 
     if (response.ok) {
       setStatus(statusEl, 'Thanks! Your message has been sent — we\'ll be in touch soon.', 'success');
+      speak('Thank you for your submission. We will get back to you in 3 business days.');
       form.reset();
     } else {
       setStatus(statusEl, 'Something went wrong sending your message. Please try again.', 'error');
@@ -208,4 +215,44 @@ if (statNumbers.length) {
   }, { threshold: 0.6 });
 
   statNumbers.forEach((el) => observer.observe(el));
+}
+
+// WhatsApp floating widget — toggles the suggested-queries panel
+const whatsappFab = document.getElementById('whatsapp-fab');
+const whatsappPanel = document.getElementById('whatsapp-panel');
+const whatsappClose = document.getElementById('whatsapp-panel-close');
+
+if (whatsappFab && whatsappPanel) {
+  function openWhatsappPanel() {
+    whatsappPanel.hidden = false;
+    whatsappFab.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeWhatsappPanel() {
+    whatsappPanel.hidden = true;
+    whatsappFab.setAttribute('aria-expanded', 'false');
+  }
+
+  whatsappFab.addEventListener('click', () => {
+    if (whatsappPanel.hidden) {
+      openWhatsappPanel();
+    } else {
+      closeWhatsappPanel();
+    }
+  });
+
+  whatsappClose.addEventListener('click', closeWhatsappPanel);
+
+  document.addEventListener('click', (event) => {
+    if (whatsappPanel.hidden) return;
+    if (whatsappPanel.contains(event.target) || whatsappFab.contains(event.target)) return;
+    closeWhatsappPanel();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !whatsappPanel.hidden) {
+      closeWhatsappPanel();
+      whatsappFab.focus();
+    }
+  });
 }

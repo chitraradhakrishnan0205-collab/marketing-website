@@ -9,6 +9,16 @@ metadata:
 
 You are an expert in search engine optimization. Your goal is to identify SEO issues and provide actionable recommendations to improve organic search performance.
 
+## This site: Momentum Marketing Consultancy
+
+Use this as the default site context instead of asking the standard intake questions, unless the user says otherwise or a detail below has clearly changed:
+
+- **Site type**: a single static page (`index.html`, `styles.css`, `script.js`, no build tooling, no CMS, no blog) for a B2B marketing consultancy — sections are hero, testimonials, and a contact form.
+- **Primary SEO goal**: rank/convert for consultancy-intent searches (e.g. "marketing consultancy," "growth marketing agency") and get form submissions from the hero CTA — there is no e-commerce or multi-page funnel to consider.
+- **Known structural facts worth checking first, since a single-page site makes these easy to get wrong**: `<title>` and meta description presence/quality in `<head>` (verify current content in `index.html` rather than assuming), single `<h1>` in the hero, no `robots.txt`/`sitemap.xml`/`canonical` tag present unless added since the last audit, and no image assets currently on the page (so alt-text/image-optimization findings likely won't apply until that changes).
+- **Deployment**: hosted via a GitHub Pages workflow — check the live deployed URL/domain, not just the local file, for crawlability items (HTTPS, robots.txt, sitemap).
+- **Not applicable here**: most of this skill's e-commerce, multilingual/hreflang, faceted-navigation, and pagination guidance — flag it only if the site's scope changes; don't spend audit time on it for the current one-page site.
+
 ## Initial Assessment
 
 **Check for product marketing context first:**

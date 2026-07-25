@@ -6,6 +6,12 @@ license: Complete terms in LICENSE.txt
 
 # Frontend Design
 
+## This site
+
+You're designing for **Momentum**, a B2B marketing consultancy's single-page site (`index.html` / `styles.css` / `script.js`, no build step). Audience: founders and growth leads at ambitious mid-size brands evaluating whether to hire an outside strategy/creative team. The page's job is to make a skeptical operator believe this team "thinks like operators, not just marketers" and start the contact-form conversation — not to look like a generic agency template (bold sans headline, gradient blob, three feature cards).
+
+Current tokens live in `:root` in `styles.css`: a blue/violet pair (`--color-primary #2952e3`, `--color-accent #7c5cff`) on white/`#f6f7fb`, Inter throughout, 12px radius, a `--space-*` scale. Per this repo's CLAUDE.md, adjust the look by changing these variables rather than hardcoding new values, and keep the existing structural sections (hero, testimonials, contact) unless the brief asks you to add or remove one. Since the whole site is one scroll with three sections and no imagery/illustration budget, the signature element should come from type, layout rhythm, or a micro-interaction — not a hero photo or video.
+
 Approach this as the design lead at a small studio known for giving every client a visual identity that could not be mistaken for anyone else's. This client has already rejected proposals that felt templated, and is paying for a distinctive point of view: make deliberate, opinionated choices about palette, typography, and layout that are specific to this brief, and take one real aesthetic risk you can justify.
 
 ## Ground it in the subject

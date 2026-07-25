@@ -32,6 +32,10 @@ FormSubmit.co sends a one-time confirmation email to that address on first submi
 
 Validation (required fields + a basic email regex) happens client-side only, in `script.js`, before the network call — there is no server-side validation.
 
+## WhatsApp widget
+
+A floating WhatsApp button (bottom-right, markup at the end of `index.html`) opens a small panel of suggested queries; each links to `https://wa.me/<number>?text=...` with a pre-filled message. The number is hardcoded in the `href` attributes in `index.html` — update all four `wa.me/...` links there if the contact number changes. Panel open/close behavior lives in `script.js`.
+
 ## Styling
 
 Colors, spacing, and font are centralized as CSS custom properties in `:root` in `styles.css` — a dark, tournament-inspired palette (violet/blue/green/gold/magenta gradient accents on a near-black background). Prefer adjusting those variables over hardcoding new values when changing the look.
