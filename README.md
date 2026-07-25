@@ -8,7 +8,7 @@ A static, single-page marketing website: hero section, testimonials, and a conta
 
 - `index.html` — all markup (nav, hero, testimonials, contact form, footer)
 - `styles.css` — all styling, mobile-first with breakpoints via `@media (min-width: ...)`
-- `script.js` — smooth-scroll nav and the enquiry form's client-side validation + Formspree submission
+- `script.js` — smooth-scroll nav and the enquiry form's client-side validation + FormSubmit.co submission
 
 ## Running locally
 
@@ -20,13 +20,13 @@ npx serve .
 
 ## Contact form setup
 
-The enquiry form submits via `fetch()` as JSON to [Formspree](https://formspree.io/). Before the form will work, replace the placeholder endpoint in [script.js](script.js) with your real Formspree form ID:
+The enquiry form submits via `fetch()` as JSON to [FormSubmit.co](https://formsubmit.co/), no signup required. The endpoint in [script.js](script.js) points at the destination email:
 
 ```js
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/your-address@example.com';
 ```
 
-Until that's set, submissions will hit the inline error path.
+FormSubmit.co sends a one-time confirmation email to that address on first submission — it must be clicked to activate the form.
 
 Validation (required fields + a basic email regex) happens client-side only, in `script.js`, before the network call — there is no server-side validation.
 

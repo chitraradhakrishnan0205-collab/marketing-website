@@ -1,5 +1,6 @@
-// Replace with your actual Formspree form ID: https://formspree.io/forms
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+// FormSubmit.co — no signup required; first submission triggers a one-time
+// confirmation email to the destination address that must be clicked to activate it.
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/chitraradhakrishnan0205@gmail.com';
 
 // Smooth scroll for all internal anchor links (nav + hero CTA)
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -82,7 +83,7 @@ form.addEventListener('submit', async (event) => {
   setStatus('Sending your message…', null);
 
   try {
-    const response = await fetch(FORMSPREE_ENDPOINT, {
+    const response = await fetch(FORM_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
